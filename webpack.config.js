@@ -20,8 +20,41 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: "pre",
         test: /\.jsx?$/,
-        use: ["babel-loader"],
+        exclude: /node_modules/,
+        loader: "eslint-loader"
+      },
+      {
+        test: /\.jsx?$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    targets: {
+                      chrome: 52
+                    }
+                  }
+                ],
+                "@babel/react",
+                "@babel/preset-flow"
+              ],
+              plugins: [
+                ["@babel/plugin-proposal-decorators", { legacy: true }],
+                [
+                  "@babel/plugin-proposal-class-properties",
+                  {
+                    loose: true
+                  }
+                ]
+              ]
+            }
+          }
+        ],
         include: path.join(__dirname, "src")
       },
       {
@@ -31,7 +64,6 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              url: false,
               sourceMap: true,
               importLoaders: 2
             }
@@ -43,6 +75,13 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: "url-loader",
+        options: {
+          limit: 10000
+        }
       }
     ]
   }
