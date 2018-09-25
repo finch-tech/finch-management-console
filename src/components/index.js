@@ -1,1 +1,1 @@
-export AuthLoader from "./Loader/Auth";
+export { AuthLoader } from "./Loader/Auth";

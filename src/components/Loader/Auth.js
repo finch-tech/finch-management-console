@@ -1,29 +1,24 @@
-import React, { Component } from "react";
+// @flow
+import React, { type Node, Component } from "react";
 import { Redirect, Route } from "react-router-dom";
+import { observer, inject } from "mobx-react";
 
-export default class Auth extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAuthenticated: false
-    };
-  }
+import type { AuthStore } from "../../stores";
 
-  componentWillMount() {
-    this.validateAuthentication(this.props);
-  }
+type Props = {
+  authStore: AuthStore,
+  children: Node
+};
 
-  componentWillUpdate(nextProps) {
-    this.validateAuthentication(nextProps);
-  }
-
-  validateAuthentication(props) {
-    // Check if logged in.
-  }
-
+@inject("authStore")
+@observer
+export class AuthLoader extends Component<Props> {
   render() {
-    return this.state.isAuthenticated ? (
-      <Route children={this.props.children} />
+    this.props.authStore.updateAuthenticationStatus();
+    const { isAuthenticated } = this.props.authStore;
+
+    return isAuthenticated ? (
+      <Route>{this.props.children}</Route>
     ) : (
       <Redirect to={"/login"} />
     );

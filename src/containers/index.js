@@ -1,4 +1,6 @@
-export Signup from "./Auth/Signup";
-export Login from "./Auth/Login";
+export { AuthBase as Auth } from "./Auth/Base";
+export { SignUp } from "./Auth/SignUp";
+export { Login } from "./Auth/Login";
+export { Activation } from "./Auth/Activation";
 
-export StoreList from "./Store/List";
+export { StoreList } from "./Store/List";

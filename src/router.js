@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import App from "./App";
 
-import { Login, Signup, StoreList } from "./containers";
+import App from "./App";
+import { Activation, Login, SignUp, StoreList } from "./containers";
 import { AuthLoader } from "./components";
 
 render(
@@ -11,10 +11,11 @@ render(
     <App>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/sign_up" component={SignUp} />
+        <Route path="/activation" component={Activation} />
         <AuthLoader>
           <Switch>
-            <Route exact path="/" component={StoreList} />
+            <Route path="/" component={StoreList} />
           </Switch>
         </AuthLoader>
       </Switch>

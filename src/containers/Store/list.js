@@ -1,6 +1,9 @@
+// @flow
 import React, { Component } from "react";
 
-export default class StoreList extends Component {
+type Props = {};
+
+export class StoreList extends Component<Props> {
   render() {
     return <div>Store List</div>;
   }

@@ -1,0 +1,70 @@
+#auth {
+  display: flex;
+  height: 100%;
+  background-image: url("./../images/bg_dot@2x.jpg");
+  background-size: 15px 15px;
+  div.auth-container {
+    align-self: center;
+    width: 520px;
+    margin: 0 auto;
+    border: solid 1px #e7e7e7;
+    background-color: #ffffff;
+  }
+  div.main {
+    padding: 66px 60px 30px;
+    h1.auth-title {
+      width: 338px;
+      height: 84px;
+      margin: 0 auto;
+      font-size: 30px;
+      line-height: 1.4;
+      color: #4a4a4a;
+      text-align: center;
+    }
+    div.signed-up {
+      height: 450px;
+      margin-top: 64px;
+      img.auth-icon {
+        display: block;
+        margin: 0 auto 20px;
+      }
+      p.message {
+        margin-bottom: 30px;
+        font-size: 16px;
+        line-height: 1.4;
+        color: #4a4a4a;
+        text-align: center;
+      }
+    }
+    form.form-control {
+      margin-top: 90px;
+      div.link {
+        text-align: right;
+        a.forgot-password {
+          display: inline-block;
+          margin-bottom: 42px;
+          font-size: 12px;
+          text-align: right;
+          color: #6a6a6a;
+        }
+      }
+      button.btn {
+        margin: 0 auto 83px;
+      }
+    }
+  }
+  div.footer {
+    padding: 20px 0 70px;
+    border-top: solid 1px #e7e7e7;
+    p.link-message {
+      font-size: 14px;
+      text-align: center;
+      color: #5f9bf9;
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+        color: #5f9bf9;
+      }
+    }
+  }
+}
