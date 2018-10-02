@@ -5,15 +5,18 @@ import Cookie from "js-cookie";
 import url from "url";
 
 import config from "../config.js";
+import { User } from "../models";
 import type { RootStore } from "./";
 
 export class AuthStore {
   @observable
-  account: string;
+  account: User;
+
   @observable
   loading: boolean = false;
+
   @observable
-  isAuthenticated: boolean = false;
+  authToken: string = "";
 
   rootStore: RootStore;
   apiUrl: string;
@@ -23,12 +26,15 @@ export class AuthStore {
     this.apiUrl = url.format(config.api);
   }
 
+  @action
   updateAuthenticationStatus(): void {
-    this.isAuthenticated = !!Cookie.get("auth-token");
+    if (!this.authToken) {
+      this.authToken = Cookie.get("auth-token");
+    }
   }
 
   @action
-  async signUp(email: string, password: string): Promise<Object> {
+  async signUp(email: string, password: string): Promise<User> {
     this.loading = true;
 
     try {
@@ -44,7 +50,7 @@ export class AuthStore {
       );
 
       this.loading = false;
-      return response.data;
+      return new User(response.data);
     } catch (error) {
       this.loading = false;
       throw error;
@@ -52,7 +58,7 @@ export class AuthStore {
   }
 
   @action
-  async login(email: string, password: string): Promise<Object> {
+  async login(email: string, password: string): Promise<User> {
     this.loading = true;
 
     try {
@@ -68,8 +74,9 @@ export class AuthStore {
       );
 
       Cookie.set("auth-token", response.data.token);
+      this.account = new User(response.data.user);
       this.loading = false;
-      return response.data;
+      return this.account;
     } catch (error) {
       this.loading = false;
       throw error;
@@ -77,7 +84,7 @@ export class AuthStore {
   }
 
   @action
-  async activate(token: String): Promise<Object> {
+  async activate(token: String): Promise<User> {
     this.loading = true;
 
     try {
@@ -90,8 +97,9 @@ export class AuthStore {
       );
 
       Cookie.set("auth-token", response.data.token);
+      this.account = new User(response.data.user);
       this.loading = false;
-      return response.data;
+      return this.account;
     } catch (error) {
       this.loading = false;
       throw error;
@@ -101,6 +109,26 @@ export class AuthStore {
   @action
   logout(): void {
     Cookie.remove("auth-token");
-    this.isAuthenticated = false;
+    this.authToken = "";
+  }
+
+  @action
+  async loadAccount(): Promise<User> {
+    this.loading = true;
+
+    try {
+      const response = await axios.get(url.resolve(this.apiUrl, "/profile"), {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      });
+
+      this.account = new User(response.data);
+      this.loading = false;
+      return this.account;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
   }
 }

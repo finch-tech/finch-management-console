@@ -15,9 +15,9 @@ type Props = {
 export class AuthLoader extends Component<Props> {
   render() {
     this.props.authStore.updateAuthenticationStatus();
-    const { isAuthenticated } = this.props.authStore;
+    const { authToken } = this.props.authStore;
 
-    return isAuthenticated ? (
+    return authToken && authToken.length ? (
       <Route>{this.props.children}</Route>
     ) : (
       <Redirect to={"/login"} />

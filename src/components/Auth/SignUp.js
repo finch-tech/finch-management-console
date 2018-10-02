@@ -25,7 +25,7 @@ export class SignUp extends Component<Props> {
   signedUp = false;
 
   @observable
-  error: Error;
+  flash: Object;
 
   handleChange = (event: SyntheticInputEvent<EventTarget>) => {
     let formData = this.formData;
@@ -51,19 +51,22 @@ export class SignUp extends Component<Props> {
       await authStore.signUp(this.formData.email, this.formData.password);
       this.signedUp = true;
     } catch (error) {
-      this.error = error;
+      this.flash = {
+        message: "Failed to sign up",
+        type: "red"
+      };
       return;
     }
   };
 
   render() {
     const { loading } = this.props.authStore;
-    let emailIcon = require("./images/email_icon@2x.png");
+    let emailIcon = require("./../../assets/images/email_icon@2x.png");
 
     return (
       <Auth>
         <div className="auth-container">
-          <div className="main">
+          <div className="auth-main">
             <h1 className="auth-title">
               Accept Cryptocurrency Enhance Your Business.
             </h1>
@@ -84,11 +87,14 @@ export class SignUp extends Component<Props> {
               </div>
             ) : (
               <form className="form-control" onSubmit={this.handleSubmit}>
-                {this.error && (
-                  <div className="notify red">Failed to register</div>
+                {this.flash && (
+                  <div className={`notify ${this.flash.type}`}>
+                    {this.flash.message}
+                  </div>
                 )}
+
                 <label>
-                  <span>Email</span>
+                  <span className="input-name">Email</span>
                   <input
                     type="text"
                     name="email"
@@ -98,7 +104,7 @@ export class SignUp extends Component<Props> {
                   />
                 </label>
                 <label>
-                  <span>Password</span>
+                  <span className="input-name">Password</span>
                   <input
                     type="password"
                     name="password"
@@ -125,7 +131,7 @@ export class SignUp extends Component<Props> {
           </div>
 
           {!this.signedUp && (
-            <div className="footer">
+            <div className="auth-footer">
               <p className="link-message">
                 If you already have an account,{" "}
                 <Link to="/login">login here.</Link>

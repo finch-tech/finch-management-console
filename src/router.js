@@ -1,22 +1,36 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import App from "./App";
-import { Activation, Login, SignUp, StoreList } from "./containers";
+import {
+  Main,
+  Activation,
+  Login,
+  SignUp,
+  StoreList,
+  StoreMain
+} from "./components";
 import { AuthLoader } from "./components";
 
 render(
   <BrowserRouter>
     <App>
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/sign_up" component={SignUp} />
-        <Route path="/activation" component={Activation} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/sign_up" component={SignUp} />
+        <Route exact path="/activation" component={Activation} />
         <AuthLoader>
-          <Switch>
-            <Route path="/" component={StoreList} />
-          </Switch>
+          <Main>
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/stores" />} />
+
+              <Route exact path="/stores/new" component={StoreList} />
+              <Route path="/stores/:id" component={StoreMain} />
+
+              <Route path="/stores" component={StoreList} />
+            </Switch>
+          </Main>
         </AuthLoader>
       </Switch>
     </App>

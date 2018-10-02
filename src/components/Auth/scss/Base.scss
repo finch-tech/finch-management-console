@@ -1,7 +1,7 @@
 #auth {
   display: flex;
   height: 100%;
-  background-image: url("./../images/bg_dot@2x.jpg");
+  background-image: url("./../../../assets/images/bg_dot@2x.jpg");
   background-size: 15px 15px;
   div.auth-container {
     align-self: center;
@@ -10,7 +10,7 @@
     border: solid 1px #e7e7e7;
     background-color: #ffffff;
   }
-  div.main {
+  div.auth-main {
     padding: 66px 60px 30px;
     h1.auth-title {
       width: 338px;
@@ -53,7 +53,7 @@
       }
     }
   }
-  div.footer {
+  div.auth-footer {
     padding: 20px 0 70px;
     border-top: solid 1px #e7e7e7;
     p.link-message {

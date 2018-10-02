@@ -15,7 +15,8 @@ module.exports = {
     extensions: [".js", ".jsx"]
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 8008
   },
   module: {
     rules: [
@@ -66,6 +67,13 @@ module.exports = {
             options: {
               sourceMap: true,
               importLoaders: 2
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+              plugins: [require("autoprefixer")({ grid: true })]
             }
           },
           {

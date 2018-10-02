@@ -1,0 +1,33 @@
+ul.currency-settings-tab {
+  display: flex;
+  li {
+    a {
+      display: flex;
+      height: 56px;
+      padding: 0 40px;
+      text-decoration: none;
+      img {
+        align-self: center;
+      }
+      span.name {
+        align-self: center;
+        margin-left: 10px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #4a4a4a;
+      }
+      span.label {
+        align-self: center;
+        margin-left: 10px;
+        padding: 4px 5px;
+        background-color: #df507c;
+        font-size: 12px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      &.active {
+        border-bottom: solid 4px #4a4a4a;
+      }
+    }
+  }
+}

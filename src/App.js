@@ -15,7 +15,12 @@ export default class App extends Component<Props> {
     require("./scss/base.scss");
 
     return (
-      <Provider rootStore={rootStore} authStore={rootStore.authStore}>
+      <Provider
+        rootStore={rootStore}
+        authStore={rootStore.authStore}
+        storeStore={rootStore.storeStore}
+        clientTokenStore={rootStore.clientTokenStore}
+      >
         {this.props.children}
       </Provider>
     );

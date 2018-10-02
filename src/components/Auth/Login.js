@@ -22,7 +22,7 @@ export class Login extends Component<Props> {
   };
 
   @observable
-  error: Error;
+  flash: Object;
 
   handleChange = (event: SyntheticInputEvent<EventTarget>) => {
     let formData = this.formData;
@@ -48,7 +48,10 @@ export class Login extends Component<Props> {
       await authStore.login(this.formData.email, this.formData.password);
       this.props.history.push("/");
     } catch (error) {
-      this.error = error;
+      this.flash = {
+        message: "Failed to login",
+        type: "red"
+      };
       return;
     }
   };
@@ -59,14 +62,19 @@ export class Login extends Component<Props> {
     return (
       <Auth>
         <div className="auth-container">
-          <div className="main">
+          <div className="auth-main">
             <h1 className="auth-title">
               Accept Cryptocurrency Enhance Your Business.
             </h1>
             <form className="form-control" onSubmit={this.handleSubmit}>
-              {this.error && <div className="notify red">Failed to login</div>}
+              {this.flash && (
+                <div className={`notify ${this.flash.type}`}>
+                  {this.flash.message}
+                </div>
+              )}
+
               <label>
-                <span>Email</span>
+                <span className="input-name">Email</span>
                 <input
                   type="text"
                   name="email"
@@ -76,7 +84,7 @@ export class Login extends Component<Props> {
                 />
               </label>
               <label>
-                <span>Password</span>
+                <span className="input-name">Password</span>
                 <input
                   type="password"
                   name="password"
@@ -100,7 +108,7 @@ export class Login extends Component<Props> {
               </button>
             </form>
           </div>
-          <div className="footer">
+          <div className="auth-footer">
             <p className="link-message">
               If you don&apos;t have an account,{" "}
               <Link to="/sign_up">sign up here.</Link>
