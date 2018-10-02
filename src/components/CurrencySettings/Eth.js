@@ -26,9 +26,9 @@ export class EthSettings extends Component<Props> {
   constructor(props: Props) {
     super(props);
 
-    this.formData.payoutAddress = props.storeStore.store.ethPayoutAddress;
+    this.formData.payoutAddress = props.storeStore.store.ethPayoutAddress || "";
     this.formData.confirmationsRequired =
-      props.storeStore.store.ethConfirmationsRequired;
+      props.storeStore.store.ethConfirmationsRequired || "";
   }
 
   handleChange = (event: SyntheticInputEvent<EventTarget>) => {
