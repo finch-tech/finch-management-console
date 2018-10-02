@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
 
@@ -14,15 +13,14 @@ type Props = {
 
 @inject("authStore")
 @observer
-export class SignUp extends Component<Props> {
+export class ForgotPassword extends Component<Props> {
   @observable
   formData = {
-    email: "",
-    password: ""
+    email: ""
   };
 
   @observable
-  signedUp = false;
+  passwordReset = false;
 
   @observable
   flash: Object;
@@ -33,9 +31,6 @@ export class SignUp extends Component<Props> {
     switch (event.target.name) {
       case "email":
         formData.email = event.target.value;
-        break;
-      case "password":
-        formData.password = event.target.value;
         break;
     }
 
@@ -48,13 +43,9 @@ export class SignUp extends Component<Props> {
     const { authStore } = this.props;
 
     try {
-      await authStore.signUp(this.formData.email, this.formData.password);
-      this.signedUp = true;
+      await authStore.reset_password(this.formData.email);
+      this.passwordReset = true;
     } catch (error) {
-      this.flash = {
-        message: "Failed to sign up",
-        type: "red"
-      };
       return;
     }
   };
@@ -62,6 +53,7 @@ export class SignUp extends Component<Props> {
   render() {
     const { loading } = this.props.authStore;
     let emailIcon = require("./../../assets/images/email_icon@2x.png");
+    let lockIcon = require("./../../assets/images/lock_icon@2x.png");
 
     return (
       <Auth>
@@ -71,7 +63,7 @@ export class SignUp extends Component<Props> {
               Accept Cryptocurrency Enhance Your Business.
             </h1>
 
-            {this.signedUp ? (
+            {this.passwordReset ? (
               <div className="auth-box">
                 <img
                   className="auth-icon"
@@ -79,14 +71,28 @@ export class SignUp extends Component<Props> {
                   width="80"
                   height="80"
                 />
+
                 <p className="message">
-                  We&apos;ve send you an activation mail. Please follow the link
-                  in the mail to activate your account.
+                  Password reset sent! We&apos;ve just sent the instructions on
+                  how to reset your password to email below.
                 </p>
+
                 <div className="notify blue">{this.formData.email}</div>
               </div>
             ) : (
               <div className="auth-box">
+                <img
+                  className="auth-icon"
+                  src={lockIcon}
+                  width="80"
+                  height="80"
+                />
+
+                <p className="message">
+                  Please enter the email address you registered with. We will
+                  send you a link to reset your password.
+                </p>
+
                 <form className="form-control" onSubmit={this.handleSubmit}>
                   {this.flash && (
                     <div className={`notify ${this.flash.type}`}>
@@ -104,42 +110,19 @@ export class SignUp extends Component<Props> {
                       onChange={this.handleChange}
                     />
                   </label>
-                  <label>
-                    <span className="input-name">Password</span>
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Enter password"
-                      value={this.formData.password}
-                      onChange={this.handleChange}
-                    />
-                  </label>
-                  <div className="link">
-                    <Link className="forgot-password" to="/forgot_password">
-                      Forgot Password?
-                    </Link>
-                  </div>
+
                   <button
                     className={`btn primary ${loading && "loading"}`}
                     type="submit"
                     disabled={loading}
                   >
-                    Sign Up
+                    Reset Password
                     <div className="loader" />
                   </button>
                 </form>
               </div>
             )}
           </div>
-
-          {!this.signedUp && (
-            <div className="auth-footer">
-              <p className="link-message">
-                If you already have an account,{" "}
-                <Link to="/login">login here.</Link>
-              </p>
-            </div>
-          )}
         </div>
       </Auth>
     );

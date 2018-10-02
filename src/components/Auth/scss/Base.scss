@@ -15,29 +15,29 @@
     h1.auth-title {
       width: 338px;
       height: 84px;
-      margin: 0 auto;
+      margin: 0 auto 0;
       font-size: 30px;
       line-height: 1.4;
       color: #4a4a4a;
       text-align: center;
     }
-    div.signed-up {
+    div.auth-box {
       height: 450px;
-      margin-top: 64px;
-      img.auth-icon {
-        display: block;
-        margin: 0 auto 20px;
-      }
-      p.message {
-        margin-bottom: 30px;
-        font-size: 16px;
-        line-height: 1.4;
-        color: #4a4a4a;
-        text-align: center;
-      }
+      margin-top: 40px;
+    }
+    img.auth-icon {
+      display: block;
+      margin: 0 auto 40px;
+    }
+    p.message {
+      margin-bottom: 30px;
+      font-size: 16px;
+      line-height: 1.4;
+      color: #4a4a4a;
+      text-align: center;
     }
     form.form-control {
-      margin-top: 90px;
+      // margin-top: 90px;
       div.link {
         text-align: right;
         a.forgot-password {

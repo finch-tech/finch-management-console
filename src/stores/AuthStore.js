@@ -131,4 +131,56 @@ export class AuthStore {
       throw error;
     }
   }
+
+  @action
+  async reset_password(email: string): Promise<void> {
+    this.loading = true;
+
+    try {
+      await axios.post(
+        url.resolve(this.apiUrl, "/reset_password"),
+        {
+          email
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.authToken}`
+          }
+        }
+      );
+
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  }
+
+  @action
+  async change_password(token: string, password: string): Promise<void> {
+    this.loading = true;
+
+    try {
+      const response = await axios.post(
+        url.resolve(this.apiUrl, "/change_password"),
+        {
+          token,
+          password
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.authToken}`
+          }
+        }
+      );
+
+      Cookie.set("auth-token", response.data.token);
+      this.account = new User(response.data.user);
+      this.loading = false;
+      return this.account;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  }
 }

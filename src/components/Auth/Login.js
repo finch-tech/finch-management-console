@@ -66,47 +66,49 @@ export class Login extends Component<Props> {
             <h1 className="auth-title">
               Accept Cryptocurrency Enhance Your Business.
             </h1>
-            <form className="form-control" onSubmit={this.handleSubmit}>
-              {this.flash && (
-                <div className={`notify ${this.flash.type}`}>
-                  {this.flash.message}
-                </div>
-              )}
+            <div className="auth-box">
+              <form className="form-control" onSubmit={this.handleSubmit}>
+                {this.flash && (
+                  <div className={`notify ${this.flash.type}`}>
+                    {this.flash.message}
+                  </div>
+                )}
 
-              <label>
-                <span className="input-name">Email</span>
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Enter email"
-                  value={this.formData.email}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label>
-                <span className="input-name">Password</span>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value={this.formData.password}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <div className="link">
-                <Link className="forgot-password" to="/forgot_password">
-                  Forgot Password?
-                </Link>
-              </div>
-              <button
-                className={`btn primary ${loading && "loading"}`}
-                type="submit"
-                disabled={loading}
-              >
-                Login
-                <div className="loader" />
-              </button>
-            </form>
+                <label>
+                  <span className="input-name">Email</span>
+                  <input
+                    type="text"
+                    name="email"
+                    placeholder="Enter email"
+                    value={this.formData.email}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <label>
+                  <span className="input-name">Password</span>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password"
+                    value={this.formData.password}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <div className="link">
+                  <Link className="forgot-password" to="/forgot_password">
+                    Forgot Password?
+                  </Link>
+                </div>
+                <button
+                  className={`btn primary ${loading && "loading"}`}
+                  type="submit"
+                  disabled={loading}
+                >
+                  Login
+                  <div className="loader" />
+                </button>
+              </form>
+            </div>
           </div>
           <div className="auth-footer">
             <p className="link-message">

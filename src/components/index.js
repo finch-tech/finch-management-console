@@ -4,6 +4,8 @@ export { AuthBase as Auth } from "./Auth/Base";
 export { SignUp } from "./Auth/SignUp";
 export { Login } from "./Auth/Login";
 export { Activation } from "./Auth/Activation";
+export { ForgotPassword } from "./Auth/ForgotPassword";
+export { ResetPassword } from "./Auth/ResetPassword";
 
 export { StoreList } from "./Store/List";
 export { NewStore } from "./Store/New";

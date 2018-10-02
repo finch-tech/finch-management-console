@@ -6,6 +6,8 @@ import App from "./App";
 import {
   Main,
   Activation,
+  ForgotPassword,
+  ResetPassword,
   Login,
   SignUp,
   StoreList,
@@ -20,6 +22,8 @@ render(
         <Route exact path="/login" component={Login} />
         <Route exact path="/sign_up" component={SignUp} />
         <Route exact path="/activation" component={Activation} />
+        <Route exact path="/forgot_password" component={ForgotPassword} />
+        <Route exact path="/reset_password" component={ResetPassword} />
         <AuthLoader>
           <Main>
             <Switch>
