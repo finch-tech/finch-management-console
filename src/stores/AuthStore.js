@@ -127,6 +127,7 @@ export class AuthStore {
       this.loading = false;
       return this.account;
     } catch (error) {
+      this.logout();
       this.loading = false;
       throw error;
     }
