@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "webpack-dev-server --hot --open",
-    "build": "webpack",
+    "dev": "webpack-dev-server --hot --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js --progress",
     "lint": "eslint src",
     "flow": "flow"
   },
