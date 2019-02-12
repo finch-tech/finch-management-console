@@ -87,19 +87,21 @@ export class ApiKeyMain extends Component<Props> {
                   <pre>
                     <code>
                       {`
-                        window.onload = function () {
-                            let cryptoCheckout = new CryptoCheckout({
-                                apiUrl: 'YOUR_API_URL',
-                                apiKey: '${token.token}',
-                                amount: 5, // Payment amount in USD.
-                                button: document.getElementById('pay-with-ethereum'),
-                                onSuccess: function (voucher) {
-                                    // Send the payment voucher to your server and verify the payment.
-                                    console.log("Successfully completed the payment.", voucher);
-                                }
-                            });
-                            cryptoCheckout.init();
-                        }
+                        window.onload = function() {
+                          let finchCheckout = new FinchCheckout({
+                            button: document.getElementById(‘payment-button‘),
+                            apiUrl: ‘https://api.finchtech.io’,
+                            apiKey: ‘GtXtQDJQ6yJpqrkm/xeMw==‘,
+                            currencies: [‘btc’, ‘eth’],
+                            fiat: ‘usd’,
+                            price: ‘1.2’,
+                            identifier: ‘’, // Arbitrary identifier.
+                            onSuccess: function(voucher) {
+                              console.log(‘Successfully completed the payment.’, voucher);
+                            },
+                          });
+                          finchCheckout.init();
+                        };
                     `}
                     </code>
                   </pre>
