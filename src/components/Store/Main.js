@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import changeCase from "change-case";
 
 import { PublicKeyMain, ApiKeyList, CurrencySettingsMain } from "../";
 
@@ -39,7 +40,7 @@ export class StoreMain extends Component<Props> {
 
         <div className="title">
           <h1>
-            {store.name}{" "}
+            {changeCase.titleCase(store.name)}
             <span className="color" style={{ borderColor: store.color }} />
           </h1>
         </div>

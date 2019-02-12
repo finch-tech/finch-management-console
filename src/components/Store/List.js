@@ -50,7 +50,6 @@ class StoreItem extends Component<ItemProps> {
       <li
         key={store.id}
         className="store-item"
-        style={{ borderColor: store.color }}
         onClick={() => this.props.history.push(`/stores/${store.id}`)}
       >
         <button onClick={this.toggleSettingsTab} className="btn-store-settings">

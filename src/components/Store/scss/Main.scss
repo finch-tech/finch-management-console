@@ -6,6 +6,12 @@ div.store-main {
     margin-right: 36px;
     li {
       margin-bottom: 20px;
+      &:hover {
+        a {
+          border-bottom: solid 1px #4a4a4a;
+          color: #4a4a4a;
+        }
+      }
       a {
         position: relative;
         display: block;

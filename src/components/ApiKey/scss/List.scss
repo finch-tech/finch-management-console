@@ -6,6 +6,9 @@ ul.api-key-list {
     background-color: #ffffff;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     cursor: pointer;
+    &:hover {
+      background-color: #f5f9fe;
+    }
     h3.api-key-name {
       margin-right: 10px;
       display: inline;
