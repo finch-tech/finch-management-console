@@ -7,16 +7,21 @@ module.exports = {
   entry: ["./src/router"],
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "finch-management-console.js",
     publicPath: "/dist/"
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      API_PROTOCOL:
+        JSON.stringify(process.env.API_PROTOCOL) || JSON.stringify("http"),
+      API_HOST:
+        JSON.stringify(process.env.API_HOST) || JSON.stringify("localhost"),
+      API_PORT: JSON.stringify(process.env.API_PORT) || null
+    })
+  ],
   resolve: {
     extensions: [".js", ".jsx"]
-  },
-  devServer: {
-    historyApiFallback: true,
-    port: 8008
   },
   module: {
     rules: [

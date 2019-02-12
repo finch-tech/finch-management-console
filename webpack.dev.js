@@ -10,13 +10,23 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/static/"
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      API_PROTOCOL:
+        JSON.stringify(process.env.API_PROTOCOL) || JSON.stringify("http"),
+      API_HOST:
+        JSON.stringify(process.env.API_HOST) || JSON.stringify("localhost"),
+      API_PORT: JSON.stringify(process.env.API_PORT) || 8000
+    })
+  ],
   resolve: {
     extensions: [".js", ".jsx"]
   },
   devServer: {
     historyApiFallback: true,
-    port: 8008
+    host: "localhost",
+    port: 4000
   },
   module: {
     rules: [
