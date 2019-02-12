@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "change-case": "^3.0.2",
     "color-hash": "^1.0.3",
     "install": "^0.12.1",
     "js-cookie": "^2.2.0",

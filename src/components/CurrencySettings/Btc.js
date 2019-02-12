@@ -13,7 +13,7 @@ type Props = {
 
 @inject("storeStore")
 @observer
-export class EthSettings extends Component<Props> {
+export class BtcSettings extends Component<Props> {
   @observable
   formData = {
     payoutAddress: "",
@@ -26,9 +26,9 @@ export class EthSettings extends Component<Props> {
   constructor(props: Props) {
     super(props);
 
-    this.formData.payoutAddress = props.storeStore.store.ethPayoutAddress;
+    this.formData.payoutAddress = props.storeStore.store.btcPayoutAddress;
     this.formData.confirmationsRequired =
-      props.storeStore.store.ethConfirmationsRequired;
+      props.storeStore.store.btcConfirmationsRequired;
   }
 
   handleChange = (event: SyntheticInputEvent<EventTarget>) => {
@@ -55,8 +55,8 @@ export class EthSettings extends Component<Props> {
       let parsed = parseInt(this.formData.confirmationsRequired);
 
       await storeStore.updateStore(storeId, {
-        ethPayoutAddress: this.formData.payoutAddress,
-        ethConfirmationsRequired: isNaN(parsed) ? null : parsed
+        btcPayoutAddress: this.formData.payoutAddress,
+        btcConfirmationsRequired: isNaN(parsed) ? null : parsed
       });
 
       this.flash = {
@@ -65,7 +65,7 @@ export class EthSettings extends Component<Props> {
       };
     } catch (error) {
       this.flash = {
-        message: "Failed to update ethereum settings",
+        message: "Failed to update bitcoin settings",
         type: "red"
       };
       return;
@@ -94,10 +94,10 @@ export class EthSettings extends Component<Props> {
               onChange={this.handleChange}
             />
             <span className="note">
-              An ethereum address on which you want to receive your ether. Your
-              customers pay ether to proxy address we create for each payment
+              A bitcoin address on which you want to receive your bitcoin. Your
+              customers pay bitcoin to proxy address we create for each payment
               session, the system automatically check the amount paid and
-              forwatd ether to your payout address.
+              forwatd bitcoin to your payout address.
             </span>
           </label>
           <label>

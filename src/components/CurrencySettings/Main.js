@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Route, Switch, NavLink, Redirect } from "react-router-dom";
 
-import { EthSettings } from "../../components";
+import { EthSettings, BtcSettings } from "../../components";
 import type { StoreStore } from "../../stores";
 
 type Props = {
@@ -40,11 +40,9 @@ export class CurrencySettingsMain extends Component<Props> {
           <li>
             <NavLink
               to={`/stores/${store.id}/currency_settings/btc`}
-              onClick={e => e.preventDefault()}
             >
               <img src={btcImg} width="38" height="38" />
               <span className="name">Bitcoin</span>
-              <span className="label">Coming soon</span>
             </NavLink>
           </li>
         </ul>
@@ -61,6 +59,11 @@ export class CurrencySettingsMain extends Component<Props> {
               exact
               path={`/stores/${store.id}/currency_settings/eth`}
               render={props => <EthSettings storeId={store.id} {...props} />}
+            />
+            <Route
+              exact
+              path={`/stores/${store.id}/currency_settings/btc`}
+              render={props => <BtcSettings storeId={store.id} {...props}/>}
             />
           </Switch>
         </div>

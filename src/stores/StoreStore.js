@@ -18,11 +18,9 @@ export class StoreStore {
   stores: Array<Store> = [];
 
   rootStore: RootStore;
-  apiUrl: string;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.apiUrl = url.format(config.api);
   }
 
   @action
@@ -31,7 +29,10 @@ export class StoreStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/stores"),
+        url.format({
+          ...config.api,
+          pathname: "/stores"
+        }),
         {
           name,
           description
@@ -59,7 +60,10 @@ export class StoreStore {
 
     try {
       const response = await axios.get(
-        url.resolve(this.apiUrl, `/stores/${id}`),
+        url.format({
+          ...config.api,
+          pathname: `/stores/${id}`
+        }),
         {
           headers: {
             Authorization: `Bearer ${this.rootStore.authStore.authToken}`
@@ -81,11 +85,17 @@ export class StoreStore {
     this.loading = true;
 
     try {
-      const response = await axios.get(url.resolve(this.apiUrl, `/stores`), {
-        headers: {
-          Authorization: `Bearer ${this.rootStore.authStore.authToken}`
+      const response = await axios.get(
+        url.format({
+          ...config.api,
+          pathname: "/stores"
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${this.rootStore.authStore.authToken}`
+          }
         }
-      });
+      );
 
       this.loading = false;
       this.stores = response.data.stores.map(data => new Store(data));
@@ -100,20 +110,31 @@ export class StoreStore {
   async updateStore(
     storeId: string,
     data: {
-      payoutAddress: string,
-      confirmationsRequired: string
+      ethPayoutAddress: string,
+      ethConfirmationsRequired: number,
+      btcPayoutAddress: string,
+      btcConfirmationsRequired: number
     }
   ): Promise<Store> {
     this.loading = true;
 
     const payload = {
-      eth_payout_addresses: data.payoutAddress ? [data.payoutAddress] : null,
-      eth_confirmations_required: data.confirmationsRequired || null
+      eth_payout_addresses: data.ethPayoutAddress
+        ? [data.ethPayoutAddress]
+        : null,
+      eth_confirmations_required: data.ethConfirmationsRequired,
+      btc_payout_addresses: data.btcPayoutAddress
+        ? [data.btcPayoutAddress]
+        : null,
+      btc_confirmations_required: data.btcConfirmationsRequired
     };
 
     try {
       const response = await axios.patch(
-        url.resolve(this.apiUrl, `/stores/${storeId}`),
+        url.format({
+          ...config.api,
+          pathname: `/stores/${storeId}`
+        }),
         payload,
         {
           headers: {
@@ -125,6 +146,32 @@ export class StoreStore {
       this.loading = false;
       this.store = new Store(response.data);
       return this.store;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  }
+
+  @action
+  async deleteStore(storeId: string): Promise<void> {
+    this.loading = true;
+
+    try {
+      await axios.delete(
+        url.format({
+          ...config.api,
+          pathname: `/stores/${storeId}`
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${this.rootStore.authStore.authToken}`
+          }
+        }
+      );
+
+      this.loading = false;
+      this.stores = this.stores.filter(store => store.id != storeId);
+      return;
     } catch (error) {
       this.loading = false;
       throw error;
