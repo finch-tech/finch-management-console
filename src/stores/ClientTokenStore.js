@@ -18,11 +18,9 @@ export class ClientTokenStore {
   token: ClientToken;
 
   rootStore: RootStore;
-  apiUrl: string;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.apiUrl = url.format(config.api);
   }
 
   @action
@@ -35,7 +33,10 @@ export class ClientTokenStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/client_tokens"),
+        url.format({
+          ...config.api,
+          pathname: "/client_tokens"
+        }),
         {
           store_id: storeId,
           name,
@@ -65,7 +66,10 @@ export class ClientTokenStore {
 
     try {
       const response = await axios.get(
-        url.resolve(this.apiUrl, `/client_tokens/${id}`),
+        url.format({
+          ...config.api,
+          pathname: `/client_tokens/${id}`
+        }),
         {
           headers: {
             Authorization: `Bearer ${this.rootStore.authStore.authToken}`
@@ -88,7 +92,10 @@ export class ClientTokenStore {
 
     try {
       const response = await axios.get(
-        url.resolve(this.apiUrl, `/client_tokens`),
+        url.format({
+          ...config.api,
+          pathname: "/client_tokens"
+        }),
         {
           params: {
             store_id,
@@ -117,11 +124,17 @@ export class ClientTokenStore {
     this.loading = true;
 
     try {
-      await axios.delete(url.resolve(this.apiUrl, `/client_tokens/${id}`), {
-        headers: {
-          Authorization: `Bearer ${this.rootStore.authStore.authToken}`
+      await axios.delete(
+        url.format({
+          ...config.api,
+          pathname: `/client_tokens/${id}`
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${this.rootStore.authStore.authToken}`
+          }
         }
-      });
+      );
 
       this.loading = false;
       this.tokens = this.tokens.filter(token => token.id != id);
