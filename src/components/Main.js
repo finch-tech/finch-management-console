@@ -2,14 +2,13 @@
 import React, { type Node, Component } from "react";
 import { observable } from "mobx";
 import { observer, inject } from "mobx-react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, NavLink } from "react-router-dom";
 
 import type { AuthStore } from "../stores";
 
 type Props = {
   authStore: AuthStore,
-  children: Node,
-  history: Object
+  children: Node
 };
 
 @inject("authStore")
@@ -58,7 +57,12 @@ export class Main extends Component<Props> {
               {this.accountTab && (
                 <div className="account-tab">
                   <ul>
-                    <li onClick={this.logout}>Logout</li>
+                    <li onClick={this.logout}>
+                      <span>Logout</span>
+                    </li>
+                    <li>
+                      <NavLink to="/account_settings">Account Settings</NavLink>
+                    </li>
                   </ul>
                 </div>
               )}

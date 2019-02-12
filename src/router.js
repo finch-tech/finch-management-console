@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import App from "./App";
 import {
   Main,
+  AccountSettings,
   Activation,
   ForgotPassword,
   ResetPassword,
@@ -33,6 +34,8 @@ render(
               <Route path="/stores/:id" component={StoreMain} />
 
               <Route path="/stores" component={StoreList} />
+
+              <Route path="/account_settings" component={AccountSettings} />
             </Switch>
           </Main>
         </AuthLoader>

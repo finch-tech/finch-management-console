@@ -19,11 +19,9 @@ export class AuthStore {
   authToken: string = "";
 
   rootStore: RootStore;
-  apiUrl: string;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.apiUrl = url.format(config.api);
   }
 
   @action
@@ -39,7 +37,10 @@ export class AuthStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/registration"),
+        url.format({
+          ...config.api,
+          pathname: "/registration"
+        }),
         {
           email,
           password
@@ -63,7 +64,10 @@ export class AuthStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/login"),
+        url.format({
+          ...config.api,
+          pathname: "/login"
+        }),
         {
           email,
           password
@@ -89,7 +93,10 @@ export class AuthStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/activation"),
+        url.format({
+          ...config.api,
+          pathname: "/activation"
+        }),
         { token },
         {
           headers: {}
@@ -117,11 +124,17 @@ export class AuthStore {
     this.loading = true;
 
     try {
-      const response = await axios.get(url.resolve(this.apiUrl, "/profile"), {
-        headers: {
-          Authorization: `Bearer ${this.authToken}`
+      const response = await axios.get(
+        url.format({
+          ...config.api,
+          pathname: "/profile"
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${this.authToken}`
+          }
         }
-      });
+      );
 
       this.account = new User(response.data);
       this.loading = false;
@@ -139,7 +152,10 @@ export class AuthStore {
 
     try {
       await axios.post(
-        url.resolve(this.apiUrl, "/reset_password"),
+        url.format({
+          ...config.api,
+          pathname: "/reset_password"
+        }),
         {
           email
         },
@@ -163,7 +179,10 @@ export class AuthStore {
 
     try {
       const response = await axios.post(
-        url.resolve(this.apiUrl, "/change_password"),
+        url.format({
+          ...config.api,
+          pathname: "/change_password"
+        }),
         {
           token,
           password
@@ -179,6 +198,32 @@ export class AuthStore {
       this.account = new User(response.data.user);
       this.loading = false;
       return this.account;
+    } catch (error) {
+      this.loading = false;
+      throw error;
+    }
+  }
+
+  @action
+  async delete(): Promise<boolean> {
+    this.loading = true;
+
+    try {
+      await axios.delete(
+        url.format({
+          ...config.api,
+          pathname: `/users/${this.account.id}`
+        }),
+        {
+          headers: {
+            Authorization: `Bearer ${this.authToken}`
+          }
+        }
+      );
+
+      this.logout();
+      this.loading = false;
+      return true;
     } catch (error) {
       this.loading = false;
       throw error;
