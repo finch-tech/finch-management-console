@@ -62,14 +62,22 @@ export class SignUp extends Component<Props> {
   render() {
     const { loading } = this.props.authStore;
     let emailIcon = require("./../../assets/images/email_icon@2x.png");
+    let logo = require("./../../assets/images/finch-logo@2x.png");
 
     return (
       <Auth>
         <div className="auth-container">
           <div className="auth-main">
-            <h1 className="auth-title">
-              Accept Cryptocurrency Enhance Your Business.
-            </h1>
+            {!this.signedUp && (
+              <div>
+                <div className="logo">
+                  <img src={logo} width="300" height="92" />
+                </div>
+                <h1 className="auth-title">
+                  An Open Source Cryptocurrency Payment Processor
+                </h1>
+              </div>
+            )}
 
             {this.signedUp ? (
               <div className="auth-box">
@@ -114,11 +122,6 @@ export class SignUp extends Component<Props> {
                       onChange={this.handleChange}
                     />
                   </label>
-                  <div className="link">
-                    <Link className="forgot-password" to="/forgot_password">
-                      Forgot Password?
-                    </Link>
-                  </div>
                   <button
                     className={`btn primary ${loading && "loading"}`}
                     type="submit"

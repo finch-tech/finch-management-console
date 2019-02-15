@@ -11,18 +11,20 @@
     background-color: #ffffff;
   }
   div.auth-main {
-    padding: 66px 60px 30px;
+    padding: 40px 60px 20px;
+    div.logo {
+      margin-bottom: 10px;
+      text-align: center;
+    }
     h1.auth-title {
       width: 338px;
-      height: 84px;
       margin: 0 auto 0;
-      font-size: 30px;
+      font-size: 22px;
       line-height: 1.4;
       color: #4a4a4a;
       text-align: center;
     }
     div.auth-box {
-      height: 450px;
       margin-top: 40px;
     }
     img.auth-icon {

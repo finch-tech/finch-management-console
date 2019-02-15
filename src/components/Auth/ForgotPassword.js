@@ -59,10 +59,6 @@ export class ForgotPassword extends Component<Props> {
       <Auth>
         <div className="auth-container">
           <div className="auth-main">
-            <h1 className="auth-title">
-              Accept Cryptocurrency Enhance Your Business.
-            </h1>
-
             {this.passwordReset ? (
               <div className="auth-box">
                 <img

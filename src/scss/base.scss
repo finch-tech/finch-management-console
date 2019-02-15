@@ -164,14 +164,19 @@ a.btn-back {
 }
 
 div.modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  min-width: 960px;
   background-color: #ffffff;
   opacity: 0;
   transition: 0.3s opacity ease;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   button.close {
     position: absolute;
     top: 50px;
@@ -250,6 +255,17 @@ form.form-control {
         height: 8px;
         border-radius: 100%;
         background-color: #fdc83d;
+      }
+    }
+  }
+  div.check {
+    label {
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 14px;
+      letter-spacing: 0.1;
+      a {
+        color: #5f9bf9;
       }
     }
   }

@@ -58,13 +58,17 @@ export class Login extends Component<Props> {
 
   render() {
     const { loading } = this.props.authStore;
+    let logo = require("./../../assets/images/finch-logo@2x.png");
 
     return (
       <Auth>
         <div className="auth-container">
           <div className="auth-main">
+            <div className="logo">
+              <img src={logo} width="300" height="92" />
+            </div>
             <h1 className="auth-title">
-              Accept Cryptocurrency Enhance Your Business.
+              An Open Source Cryptocurrency Payment Processor
             </h1>
             <div className="auth-box">
               <form className="form-control" onSubmit={this.handleSubmit}>
