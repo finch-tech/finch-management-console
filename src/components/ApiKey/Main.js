@@ -89,15 +89,15 @@ export class ApiKeyMain extends Component<Props> {
                       {`
                         window.onload = function() {
                           let finchCheckout = new FinchCheckout({
-                            button: document.getElementById(‘payment-button‘),
-                            apiUrl: ‘https://api.finchtech.io’,
-                            apiKey: ‘GtXtQDJQ6yJpqrkm/xeMw==‘,
-                            currencies: [‘btc’, ‘eth’],
-                            fiat: ‘usd’,
-                            price: ‘1.2’,
-                            identifier: ‘’, // Arbitrary identifier.
+                            button: document.getElementById('payment-button'),
+                            apiUrl: 'https://api.finchtech.io',
+                            apiKey: 'GtXtQDJQ6yJpqrkm/xeMw==',
+                            currencies: ['btc', 'eth'],
+                            fiat: 'usd',
+                            price: '1.2',
+                            identifier: '', // Arbitrary identifier.
                             onSuccess: function(voucher) {
-                              console.log(‘Successfully completed the payment.’, voucher);
+                              console.log('Successfully completed the payment.', voucher);
                             },
                           });
                           finchCheckout.init();
