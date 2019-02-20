@@ -1,12 +1,9 @@
 #auth {
-  display: flex;
-  height: 100%;
   background-image: url("./../../../assets/images/bg_dot@2x.jpg");
   background-size: 15px 15px;
   div.auth-container {
-    align-self: center;
     width: 520px;
-    margin: 0 auto;
+    margin: 60px auto;
     border: solid 1px #e7e7e7;
     background-color: #ffffff;
   }
