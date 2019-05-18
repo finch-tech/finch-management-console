@@ -101,9 +101,7 @@ export class EthSettings extends Component<Props> {
             </span>
           </label>
           <label>
-            <span className="input-name">
-              Request Origin confirmationsRequired
-            </span>
+            <span className="input-name">Confirmations Required</span>
             <input
               type="text"
               name="confirmationsRequired"

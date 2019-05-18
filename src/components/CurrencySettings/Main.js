@@ -32,17 +32,15 @@ export class CurrencySettingsMain extends Component<Props> {
 
         <ul className="currency-settings-tab">
           <li>
-            <NavLink to={`/stores/${store.id}/currency_settings/eth`}>
-              <img src={ethImg} width="28" height="44" />
-              <span className="name">Ethereum</span>
+            <NavLink to={`/stores/${store.id}/currency_settings/btc`}>
+              <img src={btcImg} width="38" height="38" />
+              <span className="name">Bitcoin</span>
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to={`/stores/${store.id}/currency_settings/btc`}
-            >
-              <img src={btcImg} width="38" height="38" />
-              <span className="name">Bitcoin</span>
+            <NavLink to={`/stores/${store.id}/currency_settings/eth`}>
+              <img src={ethImg} width="28" height="44" />
+              <span className="name">Ethereum</span>
             </NavLink>
           </li>
         </ul>
@@ -52,7 +50,7 @@ export class CurrencySettingsMain extends Component<Props> {
               exact
               path="/stores/:id/currency_settings"
               render={() => (
-                <Redirect to={`/stores/${store.id}/currency_settings/eth`} />
+                <Redirect to={`/stores/${store.id}/currency_settings/btc`} />
               )}
             />
             <Route
@@ -63,7 +61,7 @@ export class CurrencySettingsMain extends Component<Props> {
             <Route
               exact
               path={`/stores/${store.id}/currency_settings/btc`}
-              render={props => <BtcSettings storeId={store.id} {...props}/>}
+              render={props => <BtcSettings storeId={store.id} {...props} />}
             />
           </Switch>
         </div>
