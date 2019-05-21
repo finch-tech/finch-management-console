@@ -77,6 +77,10 @@ div.store-main {
       color: #6a6a6a;
       background-color: #f5f9fe;
       white-space: pre-line;
+      pre {
+        line-height: 1.6;
+        font-family: menlo, monospace;
+      }
     }
     form.form-control {
       button.btn {
